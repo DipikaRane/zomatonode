@@ -1,9 +1,9 @@
 var express=require('express');
 var app=express();
-/*var dotenv=require('dotenv');*/
+var dotenv=require('dotenv');
 var mongo=require('mongodb');
 var MongoClient=mongo.MongoClient;
-/*dotenv.config();*/
+dotenv.config();
 const mongoUrl='mongodb+srv://LocationDataTest:test@cluster0.sae9v.mongodb.net/Hotel?retryWrites=true&w=majority';
 var cors=require('cors')
 const bodyParser=require('body-parser')
