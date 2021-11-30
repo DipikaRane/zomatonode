@@ -1,6 +1,6 @@
 var express=require('express');
 var app=express();
-var dotenv=require('dotenv');
+/*var dotenv=require('dotenv');*/
 var mongo=require('mongodb');
 var MongoClient=mongo.MongoClient;
 dotenv.config();
