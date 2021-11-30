@@ -4,10 +4,10 @@ var dotenv=require('dotenv');
 var mongo=require('mongodb');
 var MongoClient=mongo.MongoClient;
 dotenv.config();
-const mongoUrl=process.env.MongoLiveUrl;
+const mongoUrl='mongodb+srv://LocationDataTest:test@cluster0.sae9v.mongodb.net/Hotel?retryWrites=true&w=majority';
 var cors=require('cors')
 const bodyParser=require('body-parser')
-var port=process.env.PORT||8124;
+var port=8124;/*process.env.PORT||8124;*/
 
 var db;
 
