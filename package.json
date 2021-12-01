@@ -4,7 +4,7 @@
   "description": "this is rest api",
   "main": "index.js",
   "scripts": {
-    "start": "this is app.js"
+    "start": "node appm.js"
   },
   "keywords": [
     "node"
