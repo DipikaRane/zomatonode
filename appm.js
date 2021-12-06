@@ -66,6 +66,26 @@ app.get('/restaurantdata/:id',(req,res)=>{
     
   })
 
+app.get('/filter/:mealId',(req,res)=>{
+  var id=parseInt(req.params.mealId);
+  db.collection('restaurantdata').find({"mealTypes.mealtype_id":id}).toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+
+app.get('/filter/:mealId',(req,res)=>{
+  var id=parseInt(req.params.mealId);
+  var query={"mealTypes.mealtype_id":id}
+
+  if(req.query.cuisine){
+    query={"mealTypes.mealtype_id":id,"cuisines.cuisine_id":Number(req.query.cuisine)}
+  }
+  db.collection('restaurantdata').find(query).toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
   
 app.get('/orders',(req,res)=>{
   db.collection('orders').find().toArray((err,result)=>{
