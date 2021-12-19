@@ -20,6 +20,7 @@ app.get('/',(req,res)=>{
     res.send("Hii from Express")
 })
 
+//get locations
 app.get('/locations',(req,res)=>{
     db.collection('locations').find().toArray((err,result)=>{
       if(err) throw err;
@@ -27,7 +28,7 @@ app.get('/locations',(req,res)=>{
     })
       
   })
-
+//get all mealtypes
   app.get('/mealType',(req,res)=>{
   db.collection('mealType').find().toArray((err,result)=>{
     if(err) throw err;
@@ -35,6 +36,7 @@ app.get('/locations',(req,res)=>{
   })
 })
 
+//get all menu
 app.get('/restaurantMenu',(req,res)=>{
   db.collection('restaurantMenu').find().toArray((err,result)=>{
     if(err) throw err;
@@ -102,6 +104,52 @@ app.get('/filter/:mealId',(req,res)=>{
   })
 })
   
+/// wrt to city_name
+app.get('/restaurantdata',(req,res) => {
+  var query = {};
+  if(req.query.city){
+      query={state_id:Number(req.query.city)}
+  }
+  db.collection('restaurantdata').find(query).toArray((err,result) => {
+      if(err) throw err;
+      res.send(result)
+  })
+})
+
+app.get('/restaurantMenu/:restid',(req,res)=>{
+  var restid=Number(req.params.restid);
+  db.collection('restaurantMenu').find({"restaurant_id":restid}).toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+
+app.post('/menuItem',(req,res)=>{
+  console.log(req.body);
+  db.collection('restaurantMenu').find({menu_id:{$in:req.body}}).toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+//query to update orders
+app.put('/updateStatus/:id',(req,res)=>{
+  var id=Number(req.params.id);
+  var status=req.body.status?req.body.status:"Pending"
+  db.collection('orders').updateOne(
+    {id:id},
+    {
+      $set:{
+          "date":req.body.date,
+          "bank_status":req.body.bank_status,
+          "Bank":req.body.Bank,
+          "status":status
+      }
+    }
+  )
+  res.send("Status Updated")
+})
+
+//return all orders
 app.get('/orders',(req,res)=>{
   db.collection('orders').find().toArray((err,result)=>{
     if(err) throw err;
@@ -109,9 +157,16 @@ app.get('/orders',(req,res)=>{
   })
 })
 
-app.get('/restaurantMenu/:restid',(req,res)=>{
-  var restid=Number(req.params.restid);
-  db.collection('restaurantMenu').find({"restaurant_id":restid}).toArray((err,result)=>{
+app.post('/placeOrder',(req,res)=>{
+  console.log(req.body);
+  db.collection('orders').insert(req.body,(err,result)=>{
+    if(err) throw err;
+    res.send("Order Placed")
+  })
+})
+//query to delete order with id
+app.delete('/deleteOrders',(req,res)=>{
+  db.collection('orders').remove({id:1},(err,result)=>{
     if(err) throw err;
     res.send(result)
   })
