@@ -44,6 +44,7 @@ app.get('/restaurantMenu',(req,res)=>{
   })
 })
 
+//query to get all restaurantdada
 app.get('/restaurantdata',(req,res)=>{
   db.collection('restaurantdata').find().toArray((err,result)=>{
     if(err) throw err;
@@ -51,6 +52,7 @@ app.get('/restaurantdata',(req,res)=>{
   })
 })
 
+//query to get rstaurantdata with restaurantId
 app.get('/restaurantdata/:id',(req,res)=>{
   var id=parseInt(req.params.id);
   db.collection('restaurantdata').find({"restaurant_id":id}).toArray((err,result)=>{
@@ -116,14 +118,16 @@ app.get('/restaurantdata',(req,res) => {
   })
 })
 
+//query to get menu wih Id
 app.get('/restaurantMenu/:restid',(req,res)=>{
   var restid=Number(req.params.restid);
-  db.collection('restaurantMenu').find({"restaurant_id":restid}).toArray((err,result)=>{
+  db.collection('restaurantMenu').find({restaurant_id:restid}).toArray((err,result)=>{
     if(err) throw err;
     res.send(result)
   })
 })
 
+//query to get menuItem
 app.post('/menuItem',(req,res)=>{
   console.log(req.body);
   db.collection('restaurantMenu').find({menu_id:{$in:req.body}}).toArray((err,result)=>{
@@ -131,6 +135,7 @@ app.post('/menuItem',(req,res)=>{
     res.send(result)
   })
 })
+
 //query to update orders
 app.put('/updateStatus/:id',(req,res)=>{
   var id=Number(req.params.id);
