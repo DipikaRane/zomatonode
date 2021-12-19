@@ -177,6 +177,43 @@ app.delete('/deleteOrders',(req,res)=>{
   })
 })
 
+
+////LHC project
+
+app.get('/hcproducts',(req,res)=>{
+  db.collection('hcproducts').find().toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+    
+})
+
+app.get('/categories',(req,res)=>{
+  db.collection('categories').find().toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+    
+})
+
+app.get('/subCategories',(req,res)=>{
+  db.collection('subCategories').find().toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+    
+})
+
+app.get('/hcproducts/:id',(req,res)=>{
+  var id=parseInt(req.params.id);
+  db.collection('hcproducts').find({"category_id":id}).toArray((err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+    
+})
+
+
 MongoClient.connect(mongoUrl,(err,client)=>{
   if(err) console.log("Error while connectiong")
   db=client.db('Hotel')
