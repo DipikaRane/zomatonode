@@ -43,7 +43,7 @@ app.get('/restaurantMenu',(req,res)=>{
     res.send(result)
   })
 })
-
+/*
 //query to get all restaurantdada
 app.get('/restaurantdata',(req,res)=>{
   db.collection('restaurantdata').find().toArray((err,result)=>{
@@ -51,6 +51,7 @@ app.get('/restaurantdata',(req,res)=>{
     res.send(result)
   })
 })
+*/
 
 //query to get rstaurantdata with restaurantId
 app.get('/restaurantdata/:id',(req,res)=>{
