@@ -171,10 +171,10 @@ app.post('/placeOrder',(req,res)=>{
   })
 })
 //query to delete order with id
-app.delete('/deleteOrders',(req,res)=>{
-  db.collection('orders').remove({id:1},(err,result)=>{
-    if(err) throw err;
-    res.send(result)
+app.delete('/deletOrders',(req,res)=>{
+  db.collection('orders').remove({},(err,result) => {
+      if(err) throw err;
+      res.send(result)
   })
 })
 
