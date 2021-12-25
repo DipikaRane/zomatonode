@@ -71,7 +71,7 @@ app.get('/restaurantdata/:id',(req,res)=>{
   })
 })*/
 
-//query on the basis of mealId and cuisine
+// restaurant wrt to mealId
 app.get('/filter/:mealId',(req,res) => {
   var id = parseInt(req.params.mealId);
   var sort = {cost:1}
@@ -107,9 +107,9 @@ app.get('/filter/:mealId',(req,res) => {
       query = {$and:[{cost:{$gt:lcost,$lt:hcost}}],"mealTypes.mealtype_id":id}
   }
 
-  db.collection('restaurantdata').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result)=>{
-    if(err) throw err;
-    res.send(result)
+  db.collection('restaurantdata').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result) =>{
+      if(err) throw err;
+      res.send(result) 
   })
 })
   
