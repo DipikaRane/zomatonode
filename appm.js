@@ -143,24 +143,6 @@ app.post('/menuItem',(req,res)=>{
   })
 })
 
-//query to update orders
-app.put('/updateStatus/:id',(req,res)=>{
-  var id=Number(req.params.id);
-  var status=req.body.status?req.body.status:"Pending"
-  db.collection('orders').updateOne(
-    {id:id},
-    {
-      $set:{
-          "date":req.body.date,
-          "bank_status":req.body.bank_status,
-          "Bank":req.body.Bank,
-          "status":status
-      }
-    }
-  )
-  res.send("Status Updated")
-})
-
 //return all orders
 app.get('/orders',(req,res)=>{
   db.collection('orders').find().toArray((err,result)=>{
@@ -183,6 +165,26 @@ app.delete('/deletOrders',(req,res)=>{
       res.send(result)
   })
 })
+
+//query to update orders
+app.put('/updateStatus/:id',(req,res)=>{
+  var id=Number(req.params.id);
+  var status=req.body.status?req.body.status:"Pending"
+  db.collection('orders').updateOne(
+    {id:id},
+    {
+      $set:{
+          "date":req.body.date,
+          "bank_status":req.body.bank_status,
+          "Bank":req.body.Bank,
+          "status":status
+      }
+    }
+  )
+  res.send("Status Updated")
+})
+
+
 
 MongoClient.connect(mongoUrl,(err,client)=>{
   if(err) console.log("Error while connectiong")
