@@ -160,7 +160,7 @@ app.post('/placeOrder',(req,res)=>{
 })
 
 //query to delete order with id
-app.delete('/deleteOrders',(req,res)=>{
+app.delete('/deleteOrder',(req,res)=>{
   db.collection('orders').remove({_id:id},(err,result) => {
       if(err) throw err;
       res.send(result)
