@@ -167,6 +167,14 @@ app.delete('/deleteOrders',(req,res)=>{
   })
 })
 
+//query to delete all orders record
+app.delete('/deleteOrders',(req,res)=>{
+  db.collection('orders').remove({},(err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+
 //query to update orders
 app.put('/updateStatus/:id',(req,res)=>{
   var id=Number(req.params.id);
